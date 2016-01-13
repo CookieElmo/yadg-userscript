@@ -3,7 +3,7 @@
 // @name           what.cd - YADG
 // @description    This script provides integration with online description generator YADG (http://yadg.cc)
 // @license        https://github.com/Slack06/yadg-userscript/blob/master/LICENSE
-// @version        1.3.6
+// @version        1.3.7-dev
 // @namespace      yadg
 // @grant          GM_xmlhttpRequest
 // @require        https://yadg.cc/static/js/jsandbox.min.js
@@ -1038,7 +1038,8 @@ var factory = {
             case "whatcd_torrent_overview":
                 f = function(rawData) {
                     var artist_inputs = document.getElementsByName("aliasname[]"),
-                        data = yadg.prepareRawResponse(rawData);
+                        data = yadg.prepareRawResponse(rawData),
+                        tag_input = document.getElementById("tagname");
 
                     if (data.artists != false) {
                         var input_idx = 0;
@@ -1083,6 +1084,10 @@ var factory = {
                         for (var i = 0; i < artist_inputs.length; i++) {
                             artist_inputs[i].value = '';
                         }
+                    }
+
+                    if (data.tags != false) {
+                        tag_input.value = data.tag_string.replace(/\s+/g,'').toLowerCase();
                     }
                 };
                 return f;

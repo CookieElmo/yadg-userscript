@@ -1087,7 +1087,7 @@ var factory = {
                     }
 
                     if (data.tags != false) {
-                        tag_input.value = data.tag_string.replace(/\s+/g,'').toLowerCase();
+                        tag_input.value = data.tag_string.replace(/\s+/g,'').replace(/\//g,',').toLowerCase();
                     }
                 };
                 return f;
